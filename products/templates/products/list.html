@@ -1,0 +1,57 @@
+{% extends "dashboard.html"%}
+{% block container %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+   <body>
+<div class="container-fluid" class="responsive" style="height: auto; width: auto; background-color: grey">
+<h2 style="color:white"><center><b>Donate Item<b></h2></center>
+<div class="container-fluid" style="height:auto; width: auto; color:grey; background-color: ghostwhite"><br><br>
+<div class="row">
+<div class="col-md-2">
+  </div>
+<div class="col-md-8" style="padding:1px;border:1px groove SteelBlue; background-color:white">
+<center><b><h2>Submit Details</h2><b></center><hr>
+<div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-9">
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+                                             
+
+
+<div id="div_id_title" class="form-group"> <label for="id_title" class="control-label  requiredField">
+                Title<span class="asteriskField">*</span> </label> <div class="controls "> <input class="textinput textInput form-control" id="id_title" name="title" placeholder="Enter title" type="text" required="required"/> </div> </div> <div id="div_id_description" class="form-group"> <label for="id_description" class="control-label  requiredField">
+                Description<span class="asteriskField">*</span> </label> <div class="controls "> <textarea class="textarea form-control" cols="22" id="id_description" name="description" placeholder="Tell more about your donating item" rows="2" required="required">
+</textarea> </div> </div> <div id="div_id_quantity" class="form-group"> <label for="id_quantity" class="control-label  requiredField">
+                Quantity<span class="asteriskField">*</span> </label> <div class="controls "> <input class="textinput textInput form-control" id="id_quantity" name="quantity" placeholder="No. of items you donating" type="text" required="required" /> </div> </div> <div id="div_id_zip_Code" class="form-group"> <label for="id_zip_Code" class="control-label  requiredField">
+                Zipcode<span class="asteriskField">*</span> </label> <div class="controls "> <input class="textinput textInput form-control" id="id_zip_Code" name="zip_Code" placeholder="Zipcode of your area" type="text" required="required" /> </div> </div> <div id="div_id_docfile" class="form-group"> <label for="id_docfile" class="control-label ">
+                Product Image 
+            </label> <div class="controls "> <input class="clearablefileinput" id="id_docfile" name="docfile" type="file" required="required"/> </div> </div> <div id="div_id_address" class="form-group"> <label for="id_address_0" class="control-label ">
+                Preferred Method of Contact
+            </label> <div class="controls "> <div class="checkbox"> <label class=""> <input type="checkbox" name="address" id="id_address_1" value="EMAIL" required="required" >Email
+        </label> </div> <div class="checkbox"> <label class=""> <input type="checkbox" name="address" id="id_address_2" value="CALL" >Call
+        </label> </div> <div class="checkbox"> <label class=""> <input type="checkbox" name="address" id="id_address_3" value="TEXT" >Text
+        </label> </div> </div> </div> <div id="div_id_expire_date" class="form-group"> <label for="id_expire_date" class="control-label  requiredField">
+                Expire date<span class="asteriskField">*</span> </label> <div class="controls "> <div id="id_expire_date" class="input-group date"> <input class="datetimewidget form-control" id="id_expire_date" name="expire_date" readonly="" type="text" required="required"/> <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span> <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span> </div> <script type="text/javascript">
+           $("#id_expire_date").datetimepicker({language: 'en',
+format: 'yyyy-mm-dd hh:ii:ss',
+autoclose: true}).find('input').addClass("form-control");
+       </script> </div> </div> <div class="form-group"> <div id="div_id_active" class="checkbox"> <label for="id_active" class=" requiredField"> <input class="checkboxinput" id="id_active" name="active" type="checkbox" required="required" />
+                    Are you sure to publish
+                          </label> </div> </div>
+
+   
+</div>
+      <center> <input type="image" src='/static/img/submit.png' /><br>
+                        </div><br>
+                </form><br>
+                </div><br><br></div><br><br>
+</div><br></div>
+
+</div></div>
+
+<script src="{% static 'js/bootstrap-datetimepicker.js' %}"></script>
+<script src="{% static 'js/jquery-1.8.3.min.js' %}"></script>
+</body>
+  {% endblock %}

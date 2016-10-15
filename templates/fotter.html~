@@ -1,0 +1,27 @@
+
+{% load staticfiles %}
+
+      <!-- Some social button for contact will do -->
+                 <div class="footer" style="background: #E7E7E7">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-4">
+{% block navbar-left %}
+  {% include "_navbar.html"  %}
+{% endblock %}          </div>
+          <div class="col-lg-4">
+             <center> <br><p>&copy; Company {% now 'Y' %}</p> </center>
+          </div>
+          <div class="col-lg-4 "><br>
+            Connect with us: &nbsp;&nbsp;
+            <a href="https://www.facebook.com/CommunityPanda-966919383390476/" target="_blank" ><i class="fa fa-facebook"></i> Facebook</a>&nbsp;
+            <a href="https://twitter.com/4communitypanda" target="_blank" ><i class="fa fa-twitter"></i> Twitter</a>
+          </div>
+        </div>
+            </div>
+      </div>
+
+
+
+

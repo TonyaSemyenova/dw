@@ -1,0 +1,1002 @@
+
+{% load staticfiles %}
+{% block styles %}
+<link href="{% static 'images/favicon.png' %}" rel="shortcut icon" type="image/png">
+<link href="{% static 'images/apple-touch-icon.png' %}" rel="apple-touch-icon">
+<link href="{% static 'images/apple-touch-icon-72x72.png' %}" rel="apple-touch-icon" sizes="72x72">
+<link href="{% static 'images/apple-touch-icon-114x114.png' %}" rel="apple-touch-icon" sizes="114x114">
+<link href="{% static 'images/apple-touch-icon-144x144.png' %}" rel="apple-touch-icon" sizes="144x144">
+
+<!-- Stylesheet -->
+<link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/jquery-ui.min.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/animate.css' %}" rel="stylesheet" type="text/css">
+<link href="{% static 'css/css-plugin-collections.css' %}" rel="stylesheet"/>
+<!-- CSS | menuzord megamenu skins -->
+<link id="menuzord-menu-skins" href="{% static 'css/menuzord-skins/menuzord-boxed.css' %}" rel="stylesheet"/>
+<!-- CSS | Main style file -->
+<link href="{% static 'css/style-main.css' %}" rel="stylesheet" type="text/css">
+<!-- CSS | Preloader Styles -->
+<link href="{% static 'css/preloader.css' %}" rel="stylesheet" type="text/css">
+<!-- CSS | Custom Margin Padding Collection -->
+<link href="{% static 'css/custom-bootstrap-margin-padding.css' %}" rel="stylesheet" type="text/css">
+<!-- CSS | Responsive media queries -->
+<link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css">
+<!-- CSS | Style css. This is the file where you can place your own custom css code. Just uncomment it and use it. -->
+<!-- <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css"> -->
+
+<!-- CSS | Theme Color -->
+<link href="{% static 'css/colors/theme-skin-yellow.css' %}" rel="stylesheet" type="text/css">
+
+<!-- external javascripts -->
+<script src="{% static 'js/jquery-2.2.0.min.js' %}"></script>
+<script src="{% static 'js/jquery-ui.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<!-- JS | jquery plugin collection for this theme -->
+<script src="{% static 'js/jquery-plugin-collection.js' %}"></script>
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js' %}"></script>
+  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js' %}"></script>
+    {% endblock styles %}
+
+<!-- Favicon and Touch Icons -->
+
+{% block container %}
+<title>CharityFund - Charity & Crowdfunding HTML Template</title>
+
+
+
+</head>
+<body class="">
+<div id="wrapper" class="clearfix">
+  <!-- preloader -->
+  <div id="preloader">
+    <div id="spinner">
+      <div class="preloader-dot-loading">
+        <div class="cssload-loading"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div id="disable-preloader" class="btn btn-default btn-sm">Disable Preloader</div>
+  </div>
+  
+  <!-- Header -->
+  <header id="header" class="header">
+    <div class="header-nav navbar-fixed-top header-dark navbar-white navbar-transparent navbar-sticky-animated animated-active">
+      <div class="header-nav-wrapper">
+        <div class="container">
+          <nav id="menuzord-right" class="menuzord orange">
+            <a class="menuzord-brand" href="index.html">
+              <img src="{% static 'images/Cpanda3.png' %}" alt="" style="width:150px;height:58px;">
+            </a>
+           
+            <ul class="menuzord-menu ">  {% if not user.is_authenticated %}
+<li class=""><a href="{% url 'accounts:login' %}">SIGN IN</a> 
+<!---
+<ul class="dropdown">
+                      <li><a href="+">Internal v1</a></li>
+                     
+                    </ul> ---->
+
+</li>
+       <li><a href="/accounts/signup/">SIGN UP</a></li>
+{% else %}
+
+                
+                {% if user.is_staff %}
+                <li><a href="{% url 'admin:index' %}">Admin</a></li>
+                {% endif %}
+			<ul class="menuzord-menu ">
+<li class=""><a href="{% url 'profiles:show_self' %}"> {% load avatar_tags %}
+{% if request.user.is_authenticated  %} 
+{% uploadimg_form %}
+ {% else %}
+ {{ avatar.image_url }}
+{% endif %}
+			{{ user.get_full_name|truncatechars:20 }}</a>
+
+<ul class="dropdown">
+                     <li><a href="{% url 'profiles:show_self' %}">Profile</a></li>
+                    <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                     
+                    </ul>
+
+</li>
+      
+                  </ul>
+                </li>
+              {% endif %}
+        
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </header>
+  
+  <!-- Start main-content -->
+  <div class="main-content">
+    <!-- Section: home -->
+    <section id="home" class="divider" data-bg-img="http://placehold.it/1920x1280">
+      <div class="maximage-slider">
+        <div id="maximage">
+          <img src="{% static 'images/hands-1314632.jpg' %}" alt=""/>
+          <img src="{% static 'images/city1.jpg' %}" alt=""/>
+         
+        </div>
+        <div class="fullscreen-controls"> <a class="img-prev"><i class="pe-7s-angle-left"></i></a> <a class="img-next"><i class="pe-7s-angle-right"></i></a> </div>
+      </div>
+      <div class="display-table">
+        <div class="display-table-cell">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-8 col-md-offset-2 text-center">
+                <div class="inline-block mt-40 pb-60 pl-60 pr-60 pt-40" data-bg-color="rgba(255,255,255, 0.8)">
+                  <h1 class="text-uppercase text-theme-colored font-raleway font-weight-800 mb-0 mt-0 font-48" >COMMUNITY PANDA</h1>
+				  
+				  <div class="section-content">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="gallery-isotope grid-3 gutter-small clearfix" data-lightbox="gallery">
+                <!-- Portfolio Item Start -->
+               <div class="gallery-item">
+                  <div class="thumb">
+                    <a href="/events/"><img alt="project" style="height:150px; width:150px;" src="{% static 'images/marketing-for-charities.jpg' %}" class="img-circle">
+                   <b><h3>Connect</h3></b></a>
+                  </div>
+                </div>
+				 <div class="gallery-item">
+                  <div class="thumb">
+                    <a href="volunteer.html"><img alt="project" style="height:150px; width:150px;" src="{% static 'images/volunteers-601662_640.jpg' %}" class="img-circle">
+                    <b><h3>Volunteer</h3></b></a>
+                  </div>
+                </div>
+				 <div class="gallery-item">
+                  <div class="thumb">
+                    <a href="give.html"><img alt="project" style="height:150px; width:150px;" src="{% static 'images/flower-8539_640.jpg' %}" class="img-circle">
+                    <b><h3>Give</h3></b></a>
+                  </div>
+                </div>
+				</div>
+				</div>
+</div>				 
+</div> 
+				
+                  <p class="font-16 text-black font-raleway letter-spacing-1 mb-20">
+				  
+				  Connect within the community, exchange goods and services, and donate to charities. All at the same place.</p>
+                  
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+  
+   
+    
+     <!-- Section: Testimonials and Logo -->
+	
+    <section id="client" class="divider parallax layer-overlay overlay-light" data-stellar-background-ratio="0.2" data-bg-img="{% static 'images/city1.jpg' %}">
+	
+      <div class="container pt-0 pb-0">
+        <div class="row equal-height">
+        
+          <div class="col-md-12 bg-light-transparent" >
+            <div class="pt-50 pb-50 pl-20 pr-20">
+              <h4 class="line-bottom text-uppercase mt-0">Quotes</h4>
+			  
+			  
+			  
+			  
+             <!--ulka-->
+	
+	
+
+<section id="team">
+        <script>
+  // When the DOM is ready, run this function
+$(document).ready(function() {
+  //Set the carousel options
+  $('#quote-carousel').carousel({
+    pause: true,
+    interval: 10000,
+  });
+});
+  </script>
+<div class="container col-md-12" style="
+    padding-top: 10px;
+    padding-bottom: 10px;
+">
+  <div class="row"><br><br>
+	<div class="panel panel-info">
+	
+  <div class='row'>
+    <div class='col-md-12'>
+	<b>
+      <div class="carousel slide" data-ride="carousel" id="quote-carousel">
+          <div class="carousel-inner">
+
+          <!-- Quote 1 -->
+          <div class="item active">
+            <blockquote>
+              <div class="row">
+				<div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/mother.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“I alone cannot change the world, but I can cast a stone across the waters to create many ripples.”</p>
+                </center>
+				  <small style="float:right;">Mother Teresa</small>
+                </div>
+              </div>
+            </blockquote>
+          </div>
+          <!-- Quote 2 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+				<div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/kurt.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“What should young people do with their lives today? Many things, obviously. But the most daring thing is to create stable communities in which the terrible disease of loneliness can be cured.”</p>
+                </center>
+				  <small style="float:right;">Kurt Vonnegut</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+          <!-- Quote 3 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+				<div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/jean.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Many people are good at talking about what they are doing, but in fact do little. Others do a lot but don't talk about it; they are the ones who make a community live.” </p>
+                </center>
+				  <small style="float:right;">Jean Vanier</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 4 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+			  <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/jean.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“One of the marvelous things about community is that it enables us to welcome and help people in a way we couldn't as individuals. When we pool our strength and share the work and responsibility, we can welcome many people, even those in deep distress, and perhaps help them find self-confidence and inner healing.” </p>
+                </center>
+				  <small style="float:right;">Jean Vanier</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 5 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/Bertrand.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“To like many people spontaneously and without effort is perhaps the greatest of all sources of personal happiness.”  </p>
+                </center>
+				  <small style="float:right;">Bertrand Russell</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 6 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                 <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/jackson.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Remember that the happiest people are not those getting more, but those giving more.”  </p>
+                </center>
+				  <small style="float:right;">H. Jackson Brown Jr.</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 7 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                 <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/kogi.jpeg'  style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Business, labor and civil society organizations have skills and resources that are vital in helping to build a more robust global community.”</p>
+                </center>
+				  <small style="float:right;">Kofi Annan</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 8 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                 <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/kogi.jpeg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“In an age where community involvement and partnerships with civil society are increasingly being recognized as indispensable, there is clearly a growing potential for cooperative development and renewal worldwide.” </p>
+                </center>
+				  <small style="float:right;">Kofi Annan</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 9 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                 <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/william.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“A community is a group of people who have come together, and they work and they live to try and improve the standard of living and quality of life - and I don't mean money.” </p>
+                </center>
+				  <small style="float:right;">William Baldwin </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 10 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/grace.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“We can begin by doing small things at the local level, like planting community gardens or looking out for our neighbors. That is how change takes place in living systems, not from above but from within, from many local actions occurring simultaneously.” </p>
+                </center>
+				  <small style="float:right;">Grace Lee Boggs</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 11 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/pearl.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“The person who tries to live alone will not succeed as a human being. His heart withers if it does not answer another heart. His mind shrinks away if he hears only the echoes of his own thoughts and finds no other inspiration” </p>
+                </center>
+				  <small style="float:right;">Pearl S. Buck</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 12 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/lama.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“When we have inner peace, we can be at peace with those around us. When our community is in a state of peace, it can share that peace with neighboring communities."  </p>
+                </center>
+				  <small style="float:right;">The Dalai Lama</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 13 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/dorothy.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“We have all known the long loneliness and we have learned that the only solution is love and that love comes with community.”</p>
+                </center>
+				  <small style="float:right;">Dorothy Day </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 15 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/helen.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Alone we can do so little. Together we can do so much.” </p>
+                </center>
+				  <small style="float:right;">Helen Keller</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 16 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/mother.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“If we have no peace, it is because we have forgotten that we belong to each other.” </p>
+                </center>
+				  <small style="float:right;">Mother Teresa</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 17 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/grace.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“We can begin by doing small things at the local level, like planting community gardens or looking out for our neighbors. That is how change takes place in living systems, not from above but from within, from many local actions occurring simultaneously.” </p>
+                </center>
+				  <small style="float:right;">Grace Lee Boggs</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 18 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/anne.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“How wonderful it is that nobody need wait a single moment to improve the world.” </p>
+                </center>
+				  <small style="float:right;">Anne Frank </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 19 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/gandhi.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“The best way to find yourself is to lose yourself in the service of others.”</p>
+                </center>
+				  <small style="float:right;">Mahatma Gandhi </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+
+		  <!-- Quote 22 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/albert.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Until he extends his circle of compassion to include all living things, man will not himself find peace.” </p>
+                </center>
+				  <small style="float:right;">Albert Schweitzer </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 23 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/william1.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Love all, trust a few, do wrong to none.”</p>
+                </center>
+				  <small style="float:right;">William Shakespeare </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 24 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/lyanla.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“I’m okay, you’re okay. Now let’s go to work. ” </p>
+                </center>
+				  <small style="float:right;">Lyanla Vanzant </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 12 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/nelson.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Education is the great engine of personal development. It is through education that the daughter of a peasant can become a doctor, that the son of a mineworker can become the head of the mine, that a child of farm workers can become the president of a great nation. It is what we make out of what we have, not what we are given, that separates one person from another.”</p>
+                </center>
+				  <small style="float:right;">Nelson Mandela </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 26 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/lama.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“Open your arms to change, but don’t let go of your values.”</p>
+                </center>
+				  <small style="float:right;">Dalai Lama </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 27 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/jim.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+                <div class="col-md-10">
+				<center>
+                  <p style="color:#333333;">“You must take personal responsibility. You cannot change the circumstances, the seasons, or the wind, but you can change yourself.” </p>
+                </center>
+				  <small style="float:right;">Jim Rohn </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 28 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/galileo.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“I have never met a man so ignorant that I couldn’t learn something from him.” </p>
+                </center>
+				  <small style="float:right;">Galileo Galilei</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 29 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/christian.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Home is not where you live, but where they understand you.”</p>
+                </center>
+				  <small style="float:right;">Christian Morganstern</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <!-- Quote 30 -->
+          <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/barack.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:black;">“Change will not come if we wait for some other person or some other time. We are the ones we’ve been waiting for. We are the change that we seek.”</p>
+                </center>
+				  <small style="float:right;">Barack Obama</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/mark.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“A lie can go halfway around the world before the truth even gets its boots on.”</p>
+                </center>
+				  <small style="float:right;">Mark Twain</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/mother.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:black;">“None of us can do great things. We can only do a small thing with great love every day!” </p>
+                </center>
+				  <small style="float:right;">Mother Teresa</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/charles.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“It is not the strongest of the species who survive, not the most intelligent, but those who are the most adaptive to change.” </p>
+                </center>
+				  <small style="float:right;">Charles Darwin</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/osho.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“If you really want to create peace on the earth, create peace in your heart, in your being. That is the right place to begin with... and then spread and radiate peace and love.”  </p>
+                </center>
+				  <small style="float:right;">Osho</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/martin.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“An individual has not started living until he can rise above the narrow confines of his individualistic concerns to the broader concerns of all humanity.” </p>
+                </center>
+				  <small style="float:right;">Martin Luther King, Jr.</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/fancis.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Start by doing what’s necessary, then do what’s possible, and suddenly... you are doing the impossible.” </p>
+                </center>
+				  <small style="float:right;">Francis of Assisi</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/victor.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Man’s greatest actions are performed in minor struggles. Life, misfortune, isolation, abandonment and poverty are battlefields which have their heroes - obscure heroes who are at times greater than illustrious heroes.” </p>
+                </center>
+				  <small style="float:right;">Victor Hugo </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/nelson.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“No one is born hating another person because of the color of his skin, or his background, or his religion. People must learn to hate, and if they can learn to hate, they can be taught to love, for love comes more naturally to the human heart than its opposite.” </p>
+                </center>
+				  <small style="float:right;">Nelson Mandela </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/gary.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“It is your prime responsibility to acquire useful knowledge from others and to apply it appropriately. You don’t have to reinvent the wheel, but you do have to learn from those who did.” </p>
+                </center>
+				  <small style="float:right;">Gary Ryan Blair </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		   <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/mabel.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“It is more important to know where you are going than to get there quickly.”</p>
+                </center>
+				  <small style="float:right;">Mabel Newcomber</small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/seuss.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Be who you are and say what you feel, because those who mind don’t matter and those who matter don’t mind.” </p>
+                </center>
+				  <small style="float:right;">Dr. Seuss </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/hans.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“All historical experience demonstrates the following: Our earth cannot be changed unless in the not too distant future an alteration in the consciousness of individuals is achieved.” </p>
+                </center>
+				  <small style="float:right;">Hans Kung </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/grof.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“A radical inner transformation and rise to a new level of consciousness might be the only real hope we have in the current global crisis brought on by the dominance of the Western mechanistic paradigm.”</p>
+                </center>
+				  <small style="float:right;">Stanislav Grof </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/johann.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Let everyone sweep in front of his own door, and the whole world will be clean.” </p>
+                </center>
+				  <small style="float:right;">Johann Wolfgang von Goethe </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+		  <div class="item">
+            <blockquote>
+              <div class="row">
+                <div class="col-md-2">
+                  <img class="img-circle" src="{% static 'images/jim.jpg' %}" style="width: 100px;height:100px;">
+                </div>
+				<div class="col-md-10">
+                <center>
+                  <p style="color:#333333;">“Formal education will make you a living; self-education will make you a fortune.” </p>
+                </center>
+				  <small style="float:right;">Jim Rohn </small>
+				</div>
+              </div>
+            </blockquote>
+          </div>
+
+        </div>
+
+      </div>
+</b>
+    </div>
+  </div>
+  </div>
+  </div>
+</div>
+    </section>
+	
+	  
+			  '
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+  <!-- Footer -->
+  <footer id="footer" class="footer pb-0" data-bg-img="{% static 'images/footer-bg.png' %}" data-bg-color="#25272e">
+    <div class="container pb-20">
+      <div class="row multi-row-clearfix">
+        <div class="col-sm-6 col-md-3">
+          <div class="widget dark"> <img alt="" src="{% static 'images/logo-wide-white.png' %}">
+            <p class="font-12 mt-10 mb-10">CharityFund is a library of corporate and business templates with predefined web elements which helps you to build your own site.</p>
+            <a class="btn btn-default btn-transparent btn-xs btn-flat mt-5" href="#">Read more</a>
+           
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="widget dark">
+            <h5 class="widget-title line-bottom">Photos from Flickr</h5>
+            <div id="flickr-feed" class="clearfix">
+              <script type="text/javascript" src="http://www.flickr.com/badge_code_v2.gne?count=9&amp;display=latest&amp;size=s&amp;layout=x&amp;source=user&amp;user=52617155@N08">
+              </script>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="widget dark">
+            <h5 class="widget-title line-bottom">Quick Links</h5>
+            <ul class="list-border list theme-colored angle-double-right">
+              <li><a href="contact.html">Contact Us</a></li>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="terms_piyu.html">Terms</a></li>
+             
+                          </ul>
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+          <div class="widget dark">
+            <h5 class="widget-title line-bottom">Quick Contact</h5>
+             <ul class="styled-icons icon-sm icon-bordered icon-circled clearfix mt-20">
+              <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+              <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+              <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+            </ul>
+            <p class="text-white mb-5 mt-15">Subscribe to our newsletter</p>
+            <form id="footer-mailchimp-subscription-form" class="newsletter-form mt-10">
+              <label class="display-block" for="mce-EMAIL"></label>
+              <div class="input-group">
+                <input type="email" value="" name="EMAIL" placeholder="Your Email"  class="form-control" data-height="37px" id="mce-EMAIL">
+                <span class="input-group-btn">
+                    <button type="submit" class="btn btn-colored btn-theme-colored m-0"><i class="fa fa-paper-plane-o text-white"></i></button>
+                </span>
+              </div>
+            </form>
+            <!-- Mailchimp Subscription Form Validation-->
+            <script type="text/javascript">
+              $('#footer-mailchimp-subscription-form').ajaxChimp({
+                  callback: mailChimpCallBack,
+                  url: '//thememascot.us9.list-manage.com/subscribe/post?u=a01f440178e35febc8cf4e51f&amp;id=49d6d30e1e'
+              });
+
+              function mailChimpCallBack(resp) {
+                  // Hide any previous response text
+                  var $mailchimpform = $('#footer-mailchimp-subscription-form'),
+                      $response = '';
+                  $mailchimpform.children(".alert").remove();
+                  if (resp.result === 'success') {
+                      $response = '<div class="alert alert-success"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
+                  } else if (resp.result === 'error') {
+                      $response = '<div class="alert alert-danger"><button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' + resp.msg + '</div>';
+                  }
+                  $mailchimpform.prepend($response);
+              }
+            </script>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid bg-theme-colored p-20">
+      <div class="row text-center">
+        <div class="col-md-12">
+          <p class="text-white font-11 m-0">Copyright &copy;2016. All Rights Reserved</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <a class="scrollToTop" href="#"><i class="fa fa-angle-up"></i></a>
+</div>
+<!-- end wrapper -->
+
+<!-- Footer Scripts -->
+<!-- JS | Custom script for all pages -->
+<script src="{% static 'js/custom.js' %}"></script>
+
+</body>
+</html>
+
+{% endblock container %}
+
+
+

@@ -1,0 +1,189 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% block container %}
+
+
+<link href="{% static 'css/main.structure.css' %}" rel="stylesheet">
+<link href="{% static 'css/provisional.css' %}" rel="stylesheet">
+
+<!-- //for-mobile-apps -->
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/sty.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<!-- //js -->
+<!-- cart -->
+
+<!-- cart -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
+<!-- for bootstrap working -->
+	<script type="text/javascript" src="{% static 'js/bootstrap-3.1.1.min.js' %}"></script>
+<!-- //for bootstrap working -->
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<!-- animation-effect -->
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
+
+<script>
+ new WOW().init();
+</script>
+<!-- //animation-effect -->
+<style>
+span a:hover
+{
+padding:10px 15px 10px 15px;
+background-color:#006699;
+color:#FFFFFF;
+font-weight:400;
+} 
+.footer_background
+{
+background-color:#FFFFFF;
+padding-bottom:5px;
+width:100%;
+height:40px;
+
+}
+.font_awesome
+{
+font-family:"Times New Roman", Times, serif;
+font-style:italic;
+font-weight:600;
+}
+</style>
+
+</head>
+	
+<body >
+	
+	<div class="products">
+            <div class="cover" style="height:250px;">
+
+            	
+	             <div class="cover-img cover-img__a"></div>
+
+
+	        <div class="cover-body">
+		    <div class="cover-body-inner">
+        
+		     <div>
+		         <a href="." class="link_item" style="margin-left:-150px;margin-top:150px;"> <img src="{% static 'img/try/donate2.png' %}"></a>
+				 <div style="visibility:hidden">1</div>
+				 <div style="visibility:hidden">2</div>
+				 				
+				 <div style="visibility:hidden">3</div>
+		     </div>
+		  {% if request.user.is_authenticated %}
+           <a href="/products/active/"><span style="float:right; padding-top:10px; font-size:24px; font-weight:500;"><img src="{% static 'img/try/act.png' %}" </span></a>{% else %}<a href='/login/'> <span style="float:right; padding-top:10px; font-size:24px; font-weight:500;" onclick="alert('Login first and update your profile')"><img src="{% static 'img/try/act.png' %}"</span></a>{% endif %}
+   
+		      </div>
+	        </div>
+
+     </div>
+
+		  <center><div class="col-md-12 products-right">
+			  <div class="products-right-grid">
+					<div class="products-right-grids animated wow slideInRight" data-wow-delay=".5s">
+						
+						
+						<div class="clearfix"> </div>
+					</div>
+			  </div>
+				<div class="products-right-grids-bottom">{% for post in post  %}
+					<div class="col-md-3 products-right-grids-bottom-grid">
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">	
+							<div class="new-collections-grid1-image" style="height:auto;">
+                            <div class="awesome_search_font" style=" height:auto; width:100%; background-color:#ACA097;color:white; padding:10px 10px 5px 5px;"><h3>{{ post.title|truncatechars:20 }}</h3></div>{% if post.docfile %}
+								<a href="product-details.html" class="product-image"><img src="{{ post.docfile.url }}" style="height:250px; width:auto;" alt=" " class="img-responsive"></a>{% else %}
+<a href="/products/{{ post.pk }}/" class="product-image"><img src=" {% static "img/7.jpg" %}" style="height:250px; width:auto;" alt=" " class="img-responsive"></a>{% endif %}
+								<div class="new-collections-grid1-image-pos products-right-grids-pos">
+									<a href="/products/{{ post.pk }}/">Quick View</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										
+										<div class="clearfix"> </div>
+									</div>
+								</div>
+							</div>
+
+							<h4 class="footer_background"><div ><span  class="font_awesome" style="float:left"><a href="/products/{{ post.pk }}/">DETAIL</a></span><span  class="font_awesome" style="float:right"><a href="/product/enquiry/{{ post.user.email}}/"><i class="glyphicon glyphicon-user"></i>&nbsp;{{ post.user.get_full_name|truncatechars:20 }}</a></span></div></h4><hr>
+						</div>
+					</div>
+					{% endfor %}
+					<div class="clearfix"> </div>
+				</div>
+				
+			<div class="clearfix"> </div>
+		</div>
+	{% if is_paginated %}
+        <div class="pagination">
+            <span class="page-links">
+                {% if page_obj.has_previous %}
+                    <a href="/products?page={{ page_obj.previous_page_number }}">previous</a>
+                {% endif %}
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                </span>
+                {% if page_obj.has_next %}
+                    <a href="/products?page={{ page_obj.next_page_number }}">next</a>
+                {% endif %}
+            </span>
+        </div>
+    {% endif %}
+<!-- //breadcrumbs -->
+<!-- footer -->
+	
+    
+<!-- //footer -->
+
+
+</div>
+<script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="{% static 'js/NOSlideShow.js' %}"></script>
+<script>
+
+var mySlideShow = new SlideShow('projectSlides');
+    mySlideShow.container.label = $(".cover-subtitle");
+    mySlideShow.container.image = $(".cover-img.cover-img__a");
+    mySlideShow.container.background = $(".cover-img.cover-img__b");
+
+  // Set Slides.
+  mySlideShow.setSlides([{name: 'echarity1.', image: '{% static 'img/try/bnr.png' %}'},
+                         {name: 'echarity2.', image: '{% static 'img/try/bnr1.png' %}'},
+                         {name: 'echarity3', image: '{% static 'img/try/bnr2.png' %}'},
+                         {name: 'echarity4', image: '{% static 'img/try/bnr3.png' %}'}
+						            ]);
+
+  // Display first slide.
+  mySlideShow.displaySlide();
+
+  // Loop slides.
+  var showInterval = setInterval("mySlideShow.advanceSlide()", 3000);
+
+</script>
+<script src="http://code.jquery.com/jquery.js' %}"></script>
+
+<script src="placeholder-pop.js' %}"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js' %}';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</body></html>
+{% endblock %}
+
+
+
+

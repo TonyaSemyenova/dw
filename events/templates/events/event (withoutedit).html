@@ -1,0 +1,265 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+{% block container %}
+
+
+<link href="{% static 'css/main.structure.css' %}" rel="stylesheet">
+<link href="{% static 'css/provisional.css' %}" rel="stylesheet">
+
+<!-- //for-mobile-apps -->
+<link href="{% static 'css/bootstrap.css' %}" rel="stylesheet" type="text/css" media="all" />
+<link href="{% static 'css/sty.css' %}" rel="stylesheet" type="text/css" media="all" />
+<!-- js -->
+<script src="{% static 'js/jquery.min.js' %}"></script>
+
+<!-- //js -->
+<!-- cart -->
+
+<!-- cart -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery-ui.css' %}">
+<!-- for bootstrap working -->
+	<script type="text/javascript" src="{% static 'js/bootstrap-3.1.1.min.js' %}"></script>
+<!-- //for bootstrap working -->
+<link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+<link href='//fonts.googleapis.com/css?family=Lato:400,100,100italic,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+<!-- animation-effect -->
+<link href="{% static 'css/animate.min.css' %}" rel="stylesheet"> 
+
+
+<script>
+ new WOW().init();
+</script>
+<!-- //animation-effect -->
+<style>
+span a:hover
+{
+padding:10px 15px 10px 15px;
+background-color:#006699;
+color:#FFFFFF;
+font-weight:400;
+} 
+.footer_background
+{
+background-color:#FFFFFF;
+padding-bottom:5px;
+width:100%;
+height:40px;
+
+}
+.font_awesome
+{
+font-family:"Times New Roman", Times, serif;
+font-style:italic;
+font-weight:600;
+}
+</style>
+
+</head>
+	
+<!-- //animation-effect -->
+
+<script language="javascript">
+ScrollRate = 50;
+function scrollDiv_init() {
+	DivElmnt = document.getElementById('MyDivName');
+	ReachedMaxScroll = false;
+
+	DivElmnt.scrollTop = 0;
+	PreviousScrollTop  = 0;
+
+	ScrollInterval = setInterval('scrollDiv()', ScrollRate);
+}
+
+function scrollDiv() {
+
+	if (!ReachedMaxScroll) {
+		DivElmnt.scrollTop = PreviousScrollTop;
+		PreviousScrollTop++;
+
+		ReachedMaxScroll = DivElmnt.scrollTop >= (DivElmnt.scrollHeight - DivElmnt.offsetHeight);
+	}
+	else {
+		ReachedMaxScroll = (DivElmnt.scrollTop == 0)?false:true;
+
+		DivElmnt.scrollTop = PreviousScrollTop;
+		PreviousScrollTop--;
+	}
+}
+
+function pauseDiv() {
+	clearInterval(ScrollInterval);
+}
+
+function resumeDiv() {
+	PreviousScrollTop = DivElmnt.scrollTop;
+	ScrollInterval    = setInterval('scrollDiv()', ScrollRate);
+}
+</script>
+
+</head>
+	
+<body>
+<!-- breadcrumbs -->
+<div style="height:45px;  background-color:#FFF;"></div>
+	
+	<div class="">
+   <div class="cover" style="height:300px;">
+
+	<div class="cover-img cover-img__b"></div>
+	<div class="cover-img cover-img__a"></div>
+
+
+	<div class="cover-body">
+		<div class="cover-body-inner">
+
+		  <div class="cover-title" style=" float:left;">
+		    <a href="/events/" class="link-item title"> CONNECT</a>
+		  </div>
+		  
+		 
+		  </div>
+
+		</div>
+	</div>
+
+
+		<div class="container-fluid">{% if request.user.is_authenticated %}
+           <a href="/events/active/"><span style="float:right; padding-top:10px; font-size:24px; font-weight:500;">Event On Your City         </span></a>{% else %}<a href='/login/'> <span style="float:right; padding-top:10px; font-size:24px; font-weight:500;" onclick="alert('Login first and update your profile')">Event on Your City</span></a>{% endif %}
+   </div> <div class="container-fluid" style="width: auto; color:grey; background-color:Lavender">
+    <div class="row">
+
+
+<div class="col-md-12">
+
+
+ <div class="col-md-5"></div><div class="col-md-7">
+         <br>
+</div>
+<div class="col-md-1"></div>
+<div class="col-md-4">
+<a href="/zipuser/"><button type="submit" class="btn btn-success btn-lg">Chat with near User</button></a>
+</div><div class="col-md-4">
+<a href="/zipuser/"><button type="submit" class="btn btn-primary btn-lg">Chat with near User</button></a>
+</div><div class="col-md-3">
+<a href="/groupchat1/"><button type="submit" class="btn btn-warning btn-lg">Explore the Groups Chat</button></a>
+</div>
+</body></div>
+</div>
+		  <center><div class="col-md-12 products-right">
+			  <div class="products-right-grid">
+					<div class="products-right-grids animated wow slideInRight" data-wow-delay=".5s">
+						
+						
+						<div class="clearfix"> </div>
+					</div>
+			  </div>
+				<div class="products-right-grids-bottom">{% for event in event %}
+					<div class="col-md-4 products-right-grids-bottom-grid">
+						<div class="new-collections-grid1 products-right-grid1 animated wow slideInUp" data-wow-delay=".5s">	
+							<div class="new-collections-grid1-image" style="height:auto;">
+                            <div class="awesome_search_font" style=" height:auto; width:100%; background-color:#3EFA8F; padding:10px 10px 5px 5px;">{{  event.eventtype|title|truncatewords:10 }}</div>
+								<a href="/events/event/{{ event.pk }}/l" class="product-image"><img src="{{ event.snap.url }}" style="height:400px; width:auto;" alt=" " class="img-responsive"></a>
+								<div class="new-collections-grid1-image-pos products-right-grids-pos">
+									<a href="/events/event/{{ event.pk }}/">Quick View</a>
+								</div>
+								<div class="new-collections-grid1-right products-right-grids-pos-right">
+									<div class="rating">
+										
+										<div class="clearfix"> </div>
+									</div>
+								</div>
+							</div>
+
+							<h4 class="footer_background"><div ><span  class="font_awesome" style="float:left"><a href="/events/event/{{ event.pk }}/">{{  event.date_event|date:"d M Y"}}</a></span><span  class="font_awesome" style="float:right"><a href="/event/enquiry/{{ event.user}}/"><i class="glyphicon glyphicon-user"></i>&nbsp;{{ event.user.get_full_name|truncatechars:20 }}</a></span></div></h4><hr>
+						</div>
+					</div>
+					{% endfor %}
+					<div class="clearfix"> </div>
+				</div>
+				
+			<div class="clearfix"> </div><br><br>
+	</div>	</div></div>	</div></div>	</div>
+ <div class="container-fluid" style="width: auto; color:grey; background-color:Lavender">
+    <div class="row">
+
+
+<div class="col-md-5">
+<p><b><h2>Post Event</h2></b></p>
+<form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+
+  {{ form|crispy }}
+
+         
+  {% if not user.is_authenticated %}
+<div class="col-md-5"></div><div class="col-md-7"><button type="button" class="btn btn-info btn-lg" onclick="alert('Login first for Publish Event')">Submit Event</button>
+</div>
+{% else %}
+ <div class="col-md-5"></div><div class="col-md-7">
+                        <input type="image" src='{% static "img/submit.png" %}' /></div><br><br>
+                </form>
+<br><br>
+{% endif %}<br><br>
+</div>
+<div class="col-md-2"></div>
+<div class="col-md-5">
+<body id='container-fluid'   onLoad="scrollDiv_init()">
+<div id="MyDivName" style="overflow:auto;width:70%;height:350px;float:right;" onMouseOver="pauseDiv()" onMouseOut="resumeDiv()" >
+{% for event in event %}
+<a href='/events/event/{{ event.pk }}/'style="color:#428BCA"> <h3>
+{% if event.snap %}
+
+		   	 <img class="img-circle" src="{{ event.snap.url }}" class="img-responsive"    alt="image not found" style="width:30%; height:80px;"></img>
+           {% else %}
+                       <img class="img-circle" src="{% static 'assets/img/find_user.png' %}"  alt="your selected item" style="width:30%; height:80px;"/>
+
+                {% endif %}
+{{  event.eventtype|title|truncatewords:10 }}</h3><h5>Place : {{  event.place }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; On : {{  event.date_event|date:"d M Y" }}</h5></a><hr>{% endfor %}
+</div>
+</body></div>
+</div>
+</div></div>
+<script src="http://code.jquery.com/jquery-1.12.2.min.js"></script>
+<script src="{% static 'js/NOSlideShow.js' %}"></script>
+<script>
+
+var mySlideShow = new SlideShow('projectSlides');
+    mySlideShow.container.label = $(".cover-subtitle");
+    mySlideShow.container.image = $(".cover-img.cover-img__a");
+    mySlideShow.container.background = $(".cover-img.cover-img__b");
+
+  // Set Slides.
+  mySlideShow.setSlides([{name: 'Top Of The Rock. New York.', image: 'http://manojtech.tk/modifypage/img/Community-Involvement.jpg'},
+                         {name: 'Just A Bokeh. Myrtle Beach. North India.', image: 'http://manojtech.tk/modifypage/img/flower_green_banner_background_278307.jpg'},
+                         {name: 'Nags Head. North Carolina', image: 'http://manojtech.tk/modifypage/img/charity-header.jpg'},
+                         {name: 'Siena. Italy.', image: 'http://manojtech.tk/modifypage/img/searchbg.jpg'}
+						            ]);
+
+  // Display first slide.
+  mySlideShow.displaySlide();
+
+  // Loop slides.
+  var showInterval = setInterval("mySlideShow.advanceSlide()", 3000);
+
+</script>
+<script src="http://code.jquery.com/jquery.js' %}"></script>
+
+<script src="placeholder-pop.js' %}"></script>
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-36251023-1']);
+  _gaq.push(['_setDomainName', 'jqueryscript.net']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js' %}';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+
+  })();
+
+</script>
+</html>
+{% endblock %}
