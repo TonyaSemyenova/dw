@@ -1,3 +1,5 @@
+from django.contrib.auth.decorators import login_required, permission_required
+from django.views.generic import TemplateView
 from django.conf.urls import include, url
 from django.contrib import admin
 from django.conf import settings
@@ -10,22 +12,22 @@ import accounts.urls
 import allauth.urls
 import follow.urls
 from . import views
-#from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-
 
 urlpatterns = [
     url(r'^$', views.HomePage.as_view(), name='home'),
     url(r'^about/$', views.AboutPage.as_view(), name='about'),
     url(r'^users/', include(profiles.urls, namespace='profiles')),
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^', include(accounts.urls, namespace='accounts')),
-    url(r'^account/', include('authtools.urls')),
+    url(r'^accounts/', include(accounts.urls, namespace='accounts')),
     url(r'^accounts/', include('allauth.urls')),
+    url(r'^accounts/', include('authtools.urls')),
     url(r'^products/', include(products.urls, namespace='products')),
     url(r'^services/', include(services.urls, namespace='services')),
     url(r'^events/', include(events.urls, namespace='events')),
     url(r'^s/$', 'my_proj.views.search', name='search'),
-    url(r'^z/$', 'my_proj.views.zipcode', name='zipcode'),
+    url(r'^con/$', 'my_proj.views.zipcode', name='zipcode'),
+    url(r'^vole/$', 'my_proj.views.vole', name='vole'),
+    url(r'^give/$', 'my_proj.views.give', name='give'), 
     url(r'^conect/$', 'my_proj.views.conect', name='conect'),
     url(r'^faq/$', 'my_proj.views.faq', name='faq'),
     url(r'^tour/$', 'my_proj.views.tour', name='tour'),

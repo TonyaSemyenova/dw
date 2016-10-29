@@ -24,7 +24,7 @@ class LoginView(bracesviews.AnonymousRequiredMixin,
             ONE_MONTH = 30*24*60*60
             expiry = getattr(settings, "KEEP_LOGGED_DURATION", ONE_MONTH)
             self.request.session.set_expiry(expiry)
-        return redirect
+        return redirect('/events/')
 
 
 class LogoutView(authviews.LogoutView):
@@ -36,7 +36,7 @@ class SignUpView(bracesviews.AnonymousRequiredMixin,
                  generic.CreateView):
     form_class = forms.SignupForm
     model = User
-    template_name = 'accounts/signup1.html'
+    template_name = 'accounts/signup.html'
     success_url = reverse_lazy('home')
     form_valid_message = "You're signed up!"
 

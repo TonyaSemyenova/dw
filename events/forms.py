@@ -11,15 +11,16 @@ class EventForm(forms.Form):
         ('TEXT', 'Text'),
     )
     eventtype = forms.CharField(required=False,label='Title', widget=forms.TextInput(attrs={'placeholder': 'Title of event'}))
+    zipcode = forms.CharField(required=False,label='Title', widget=forms.TextInput(attrs={'placeholder': 'zipcode'}))
     snap = forms.FileField(required=False,label='Event Look-up Picture ')    
       #date_event = forms.DateTimeField(label='Event Date',widget=DateTimeWidget(usel10n=True, bootstrap_version=3))    
     description = forms.CharField(label='Description', widget=forms.Textarea(attrs={'cols': 22, 'rows': 2 ,'placeholder': 'Give some overview of your event'}))
-    place = forms.MultipleChoiceField(
+    contact_method = forms.MultipleChoiceField(
         required=False,
         widget=forms.CheckboxSelectMultiple,
         choices=METHOD_OF_CONTACT,label='Preferred Method of Contact',
     )
-    zip_Code = forms.CharField(label='Zipcode', widget=forms.TextInput(attrs={'placeholder': 'Zipcode of your area'})
+    contact_info = forms.CharField(label='Contact Info', widget=forms.TextInput(attrs={'placeholder': 'contac info there'})
     )
      #duration = forms.TimeField(widget=TimeWidget(usel10n=True, bootstrap_version=3))
      # dresscode = forms.BooleanField(label='Event Dress Code Allow'    )  
@@ -28,7 +29,7 @@ class HostForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ('eventtype', 'snap', 'description','place', 'zip_Code', )
+        fields = ('eventtype', 'snap', 'zipcode', 'description','contact_method', 'contact_info', )
   
     
     

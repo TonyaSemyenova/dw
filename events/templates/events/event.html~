@@ -480,8 +480,8 @@ $('#openBtn').click(function(){
                <li class="active"><a href="poonam-internal-1.html">Home</a>
 <ul class="dropdown">
                       <li><a href="sayali.html">connect</a></li>
-                      <li><a href="volunteer.html">Volunteer</a></li>
-                      <li><a href="give.html">Give</a></li>
+                      <li><a href="/services/">Volunteer</a></li>
+                      <li><a href="/products/">Give</a></li>
                      
                     </ul></li>
                 <!--ul class="dropdown">
@@ -633,7 +633,7 @@ $('#openBtn').click(function(){
                   </li>
                 </ul-->
               </li>
-              <li><a href="#" data-toggle="modal" data-target="#myModal">Profile</a>
+              <li><a href="/users/me" >Profile</a>
                 <!--ul class="dropdown">
                   <li><a href="features-preloader.html">Preloaders</a></li>
                   <li><a href="#">Header</a>
@@ -846,9 +846,9 @@ $('#openBtn').click(function(){
                   </li>
                 </ul-->
               </li>
-              <li><a href="sayali_group.html">Groups</a>
+              <li><a href="/groupchat1/">Groups</a>
                 <!--ul class="dropdown">
-                  <li><a href="page-become-a-volunteer.html">Become a Volunteer</a></li>
+                  <li><a href="page-become-a-/services/">Become a Volunteer</a></li>
                   <li><a href="#">Shop <span class="label label-success">New</span></a>
                     <ul class="dropdown">
                       <li><a href="shop-category.html">Category</a></li>
@@ -893,15 +893,15 @@ $('#openBtn').click(function(){
                       <li><a href="page-calender2.html">Calender Style2</a></li>
                     </ul>
                   </li>
-                  <li><a href="#">Events</a>
+                  <li><a href="#">events</a>
                     <ul class="dropdown">
-                      <li><a href="#">Events Calendar</a>
+                      <li><a href="#">events Calendar</a>
                         <ul class="dropdown">
                           <li><a href="events-calendar-style1.html">Calendar Style1</a></li>
                           <li><a href="events-calendar-style2.html">Calendar Style1</a></li>
                         </ul>
                       </li>
-                      <li><a href="#">Events Grid</a>
+                      <li><a href="#">events Grid</a>
                         <ul class="dropdown">
                           <li><a href="events-grid-2column.html">Grid 2column</a></li>
                           <li><a href="events-grid-3column.html">Grid 3column</a></li>
@@ -910,21 +910,21 @@ $('#openBtn').click(function(){
                           <li><a href="events-grid-right-sidebar.html">Grid Right Sidebar</a></li>
                         </ul>
                       </li>
-                      <li><a href="#">Events List</a>
+                      <li><a href="#">events List</a>
                         <ul class="dropdown">
                           <li><a href="events-list-left-sidebar.html">List Left Sidebar</a></li>
                           <li><a href="events-list-right-sidebar.html">List Right Sidebar</a></li>
                           <li><a href="events-list-no-sidebar.html">List No Sidebar</a></li>
                         </ul>
                       </li>
-                      <li><a href="#">Events Details</a>
+                      <li><a href="#">events Details</a>
                         <ul class="dropdown">
                           <li><a href="events-details-style1.html">Details Style1</a></li>
                           <li><a href="events-details-style2.html">Details Style2</a></li>
                           <li><a href="events-details-style3.html">Details Style3</a></li>
                         </ul>
                       </li>
-                      <li><a href="events-table.html">Events Table</a></li>
+                      <li><a href="events-table.html">events Table</a></li>
                     </ul>
                   </li>
                   <li><a href="#">Causes</a>
@@ -1000,11 +1000,11 @@ $('#openBtn').click(function(){
   <div class="widget">
                
                 <div class="search-form">
-                  <form>
+                  <form action='/con/'>
                     <div class="input-group">
-                      <input type="text" placeholder="Click to Search" class="form-control search-input">
+                      <input type="text" placeholder="Click to Search" name='q' class="form-control search-input">
                       <span class="input-group-btn">
-                      <button type="submit" class="btn search-button"><i class="fa fa-search"></i></button>
+                      <button type="submit" class="btn search-button" ><i class="fa fa-search"></i></button>
                       </span>
                     </div>
                   </form>
@@ -1040,138 +1040,48 @@ $('#openBtn').click(function(){
                 <div class="panel-body">
                   <div class="tab-content no-border">
                     <div class="tab-pane fade active in " id="tab-20">{% for event in event %}
+
                       <div class="row well">
                         <div class="col-md-5">
 	 
-           
+
           <img src="{{ event.snap.url }}" alt="Smiley face">
 <b>{{  event.eventtype|title|truncatewords:10 }}<b>
+
           
-	  
+	  {% load readmore %}
 	  </div>
 	  <div class="col-md-7">
-      <p>{{ event.description|lower|capfirst}}<a href="" style="color:#337ab7;">&nbsp;Read more..</a></p>
+      {{ event.description|readmore:15|ljust:"10" }}
+
 	  <div class="row">
-	  <div class="col-md-3">
-	  <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal1">Respond</button>
+	  <div class="col-md-3"><a href="mailto:{{ event.user.email}}?Subject=Hello%20Sending%20Respons%20to%20your%20Event." target="_top">
+	  <button type="button" class="btn btn-primary" >Respond</button></a>
 	  </div> 
 	  <div class="col-md-3 col-md-offset-4">
-	  <button type="button" class="btn btn-default">Posted at: {{  event.date_event|date:"d M Y"}}</button>
+	  <button type="button" class="btn btn-default">Posted at: {{  event.date_created|date:"d M Y"}}</button>
 	  </div>
 	  </div>
       </div></div>					  
-	  {% endfor %}
+	    {% endfor %}
 
-                    <div class="tab-pane fade" id="tab-22">
-                      <div class="row">
-                        <div class="col-sm-4"><img alt="" src="{% static 'images/services/3.jpg"></div>
-                        <div class="col-sm-5">
-                          <h4 class="mt-0 mb-30 line-bottom">Business Taxation</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi facilis, velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere adipisicing elit. Repellendus obcaecati, quos voluptatum facere velit quam.</p>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi facilis, velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere velit quam, esse rerum fugiat! Repellendus obcaecati.</p>
-                          <a href="#" class="btn btn-gray btn-flat mt-10">Read more</a>
-                        </div>
-                        <div class="col-sm-3">
-                          <h4 class="mt-0 mb-20 ml-5 line-bottom">Working Process</h4>
-                          <ul class="list-icon theme-colored">
-                            <li><i class="fa fa-pencil-square-o"></i>Request Quote</li>
-                            <li><i class="fa fa-search"></i>Investigation</li>
-                            <li><i class="fa fa-file-text-o"></i>Making All Documents</li>
-                            <li><i class="fa fa-clock-o"></i>Proper Use of Time</li>
-                            <li><i class="fa fa-gavel"></i>Case Fight</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+     <div class="pagination">
+    <span class="step-links">
+        {% if event.has_previous %}
+            <a href="?page={{ event.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+            Page {{ event.number }} of {{ event.paginator.num_pages }}.
+        </span>
+
+        {% if event.has_next %}
+            <a href="?page={{ event.next_page_number }}">next</a>
+        {% endif %} 
+    </span>
 </div>
-                    <div class="tab-pane fade" id="tab-23">
-                     <form class="form-horizontal" role="form">
-			<div class="row well">
-			
-			<div class="col-md-4 col-md-offset-1">
-				
-					<div class="text-center">
-					  <img src="//placehold.it/100" class="avatar img-circle" alt="avatar">
-					  <h6>Upload a different photo...</h6>
-					  
-					  <input type="file" class="form-control">
-					</div>
-			  
-				</div>
-				<div class="col-md-5 col-md-offset-1">
-					
-					<div class="form-group">
-           
-						<div class="col-md-12">
-						  <input class="form-control" type="text" placeholder="Title" value="">
-						</div>
-					</div>
-					
-					<div class="form-group">
-            
-            <div class="col-md-12">
-             <textarea name="" class="form-control" placeholder="Message"></textarea>
-            </div>
-          </div>
-          <div class="form-group">
-           
-            <div class="col-md-12">
-             <div class="dropdown">
-  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Contact Method
-  <span class="caret"></span></button>
-  <ul class="dropdown-menu">
-    <li><a href="#">Text</a></li>
-    <li><a href="#">Email</a></li>
-    <li><a href="#">Call</a></li>
-  </ul>
-</div>
-
-
-            </div>
-          </div>
-					
-					  <div class="form-group">
-						
-						<div class="col-md-12">
-						  <input class="form-control" type="text"placeholder="Contact Info" value="">
-						</div>
-					  </div>
-        
-					 
-					 
-				</div>
-				<div class="form-group">
-					<input type="button" class="btn btn-primary col-md-offset-5" value=" Send Post">
-              
-					
-				</div>
-			</div>
-			
-		</form>
-		
-                    </div>
-                    <div class="tab-pane fade" id="tab-24">
-                      <div class="row">
-                        <div class="col-sm-4"><img alt="" src="{% static 'images/services/5.jpg"></div>
-                        <div class="col-sm-5">
-                          <h4 class="mt-0 mb-30 line-bottom">Education Law</h4>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi facilis, velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere adipisicing elit. Repellendus obcaecati, quos voluptatum facere velit quam.</p>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quasi facilis, velit quam, esse rerum fugiat! Repellendus obcaecati, quos voluptatum facere velit quam, esse rerum fugiat! Repellendus obcaecati.</p>
-                          <a href="#" class="btn btn-gray btn-flat mt-10">Read more</a>
-                        </div>
-                        <div class="col-sm-3">
-                          <h4 class="mt-0 mb-20 ml-5 line-bottom">Working Process</h4>
-                          <ul class="list-icon theme-colored">
-                            <li><i class="fa fa-pencil-square-o"></i>Request Quote</li>
-                            <li><i class="fa fa-search"></i>Investigation</li>
-                            <li><i class="fa fa-file-text-o"></i>Making All Documents</li>
-                            <li><i class="fa fa-clock-o"></i>Proper Use of Time</li>
-                            <li><i class="fa fa-gavel"></i>Case Fight</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+             
+                    
                 </div>
               </div>
             </div>
@@ -1188,15 +1098,15 @@ $('#openBtn').click(function(){
               <div class="widget">
  <div class="item">
                     <img src="{% static 'images/download.jpg' %}" style="height:100px; width:100px" alt="">
-                    <h4 class="title">ABC</h4>
+                    <h4 class="title">{{ request.user.name}}</h4>
                    
                   </div>
                 <h5 class="widget-title line-bottom">Categories</h5>
                 <div class="categories">
                   <ul class="list list-border angle-double-right">
-                    <li><a href="#" data-toggle="modal" data-target="#myModal">Profile</a></li>
-                    <li><a href="sayali_group.html">Groups</a></li>
-                    <li><a href="ulka.html">History</a></li>
+                    <li><a href="/users/me" >Profile</a></li>
+                    <li><a href="/groupchat1/">Groups</a></li>
+                    <li><a href="/events/history/">History</a></li>
                    
                   </ul>
 <button type="button" class="btn "  style="background-color:orange;color:white;"data-toggle="modal" data-target="#myModal2">Create new post</button>
@@ -1306,15 +1216,71 @@ $('#openBtn').click(function(){
         <h4 class="modal-title"><center>New Post</center></h4>
       </div>
       <div class="modal-body">
-		 <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
+		 <form action=""  method="post" enctype="multipart/form-data">{% csrf_token %}
 
-  {{ form|crispy }}
 
-         
-  
+			<div class="row ">
+			
+			<div class="col-md-4 col-md-offset-1">
+				
+					<div class="text-center">
+					  <img src="//placehold.it/200" class="avatar img-circle" alt="avatar"><br>
+					  <h6>Upload a different photo...</h6>
+					  
+					  <input id="id_snap" name="snap" type="file" class="form-control" required>
+					</div>
+			  
+				</div>
+				<div class="col-md-5 col-md-offset-1">
+					
+					<div class="form-group">
+           
+						<div class="col-md-12">
+						  <input class="form-control" id="id_eventtype" name="eventtype"  type="text" placeholder="Title" required><br>
+						</div>
+					</div>
+					  <input type="hidden" id="id_zipcode" name="zipcode" value="{{ request.user.zipfield }}">
+					<div class="form-group">
+            
+            <div class="col-md-12">
+             <textarea pattern=".{50,}"   required title="50 characters minimum" class="form-control" id="id_description" name="description" placeholder="Message" ></textarea>
+
+            </div>
+          </div>
+          <div class="form-group">
+           
+            <div class="col-md-12">
+             <div id="div_id_contact_method" class="form-group"> <label for="id_contact_method_0" class="control-label ">
+
+            </label> <div class="controls "> Contact Method<div class="checkbox"> <label class=""> <input type="checkbox" name="contact_method" id="id_contact_method_1" value="EMAIL" >Email
+        </label> </div> <div class="checkbox"> <label class=""> <input type="checkbox" name="contact_method" id="id_contact_method_2" value="CALL" >Call
+        </label> </div> <div class="checkbox"> <label class=""> <input type="checkbox" name="contact_method" id="id_contact_method_3" value="TEXT" >Text
+        </label> </div> </div> </div>
+
+
+            </div>
+          </div>
+					
+					  <div class="form-group">
+						
+						<div class="col-md-12">
+						  <input id="id_contact_info" name="contact_info" class="form-control" type="text"placeholder="Contact Info" required>
+						</div>
+					  </div>
+        
+					 
+					
+				</div>
+				
+			</div>
+			<hr>
+			<div class="form-group">
                         <input type="image" class="btn btn-primary col-md-offset-5" />
-                </form>
+              
+					
+				</div>
 		
+		</form> 
 		
       
       
@@ -1333,8 +1299,8 @@ $('#openBtn').click(function(){
         <h4 class="modal-title">User Info</h4>
       </div>
       <div class="modal-body">
-       <center><b>Name:</b> ABC</center>
-<center><b>Email_id:</b>ABC@gmail.com</center>
+       <center><b>Name:</b> {{ request.user.name}}</center>
+<center><b>Email_id:</b>{{ request.user.name}}@gmail.com</center>
       </div>
       
     </div>
@@ -1419,7 +1385,7 @@ $('#openBtn').click(function(){
     <div class="container-fluid bg-theme-colored p-20">
       <div class="row text-center">
         <div class="col-md-12">
-          <p class="text-white font-11 m-0">Copyright &copy;2016. All Rights Reserved</p>
+          <p class="text-white font-11 m-0">Copyright &copy;2016. All Rights Reeventd</p>
         </div>
       </div>
     </div>

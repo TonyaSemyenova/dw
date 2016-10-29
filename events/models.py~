@@ -21,16 +21,18 @@ class Event(models.Model):
     user = models.ForeignKey(User)
     snap = models.FileField(upload_to='Event/%Y/%m/%d',blank=True, null=True)
     eventtype = models.CharField(max_length=200,null=False)
+    zipcode = models.CharField(max_length=200,null=False)
     date_created = models.DateTimeField(default=timezone.now)
     #date_event = models.DateTimeField(default=False)
     #dresscode = models.BooleanField(default=False)
     #duration = models.TimeField(blank=True, null=True)
     description= models.CharField(max_length=400)
-    place = models.CharField(max_length=3,
+
+    contact_method = models.CharField(max_length=6,
         choices=METHOD_OF_CONTACT,
         default=EMAIL,
     )
-    zip_Code = models.CharField(max_length=6)
+    contact_info = models.CharField(max_length=160)
 
     class Meta:
         verbose_name = ("Event")

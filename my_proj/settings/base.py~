@@ -15,7 +15,9 @@ import sys
 # Build paths inside the project like this: join(BASE_DIR, "directory")
 BASE_DIR = dirname(dirname(dirname(__file__)))
 STATICFILES_DIRS = [join(BASE_DIR, 'static')]
-MEDIA_ROOT = join(BASE_DIR, 'media')
+STATIC_URL = '/static/'
+STATIC_ROOT = join(BASE_DIR, '..', 'site', 'static')
+MEDIA_ROOT = join(BASE_DIR, '..', 'site','media')
 MEDIA_URL = "/media/"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -41,14 +43,15 @@ TEMPLATES = [
             'context_processors': [
                 # Insert your TEMPLATE_CONTEXT_PROCESSORS here or use this
                 # list if you haven't customized them:
-                'django.contrib.auth.context_processors.auth',
                 'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
                 'django.template.context_processors.i18n',
                 'django.template.context_processors.media',
                 'django.template.context_processors.static',
                 'django.template.context_processors.tz',
-                'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.request',
+                'django.template.context_processors.debug',
                 'django.core.context_processors.request',
             ],
         },
@@ -60,7 +63,7 @@ AUTHENTICATION_BACKENDS = (
     'django.contrib.auth.backends.ModelBackend',
     'allauth.account.auth_backends.AuthenticationBackend',
 )
-
+SITE_ID = 2
 
 
 # Use 12factor inspired environment variables or from a file
@@ -80,7 +83,7 @@ if exists(env_file):
 # Raises ImproperlyConfigured exception if SECRET_KEY not in os.environ
 SECRET_KEY = env('SECRET_KEY')
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -168,8 +171,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/dev/howto/static-files/
 
-STATIC_URL = '/static/'
-STATIC_ROOT = join(BASE_DIR, '..', 'site', 'static')
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -183,18 +185,19 @@ MESSAGE_TAGS = {
 }
 
 # Authentication Settings
-ACCOUNT_EMAIL_VERIFICATION = True
-ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 AUTH_USER_MODEL = 'authtools.User'
-LOGIN_REDIRECT_URL = reverse_lazy("profiles:show_self")
 ACCOUNT_SIGNUP_FORM_CLASS = 'profiles.forms.SignupForm'
 SOCIALACCOUNT_AUTO_SIGNUP = False 
 SOCIALACCOUNT_EMAIL_VERIFICATION = True
 
 
+ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS =3
 
 
 THUMBNAIL_EXTENSION = 'png'     # Or any extn for your thumbnails

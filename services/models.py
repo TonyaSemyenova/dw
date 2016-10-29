@@ -9,17 +9,28 @@ from django.conf import settings
 # Create your models here.
 
 class Service(models.Model):
+    EMAIL = 'Email'
+    CALL = 'Call'
+    TEXT = 'Text'
+    
+    METHOD_OF_CONTACT = (
+        (EMAIL, 'Email'),
+        (CALL, 'Call'),
+        (TEXT, 'Text'),
+        
+    )
     user = models.ForeignKey(User)
     title  = models.CharField(max_length=120)
     docfile = models.FileField(upload_to='Service/%Y/%m/%d',blank=True, null=True)
     description = models.CharField(default=False, max_length=160)
-    active = models.BooleanField(default=True)
-    duraction  = models.CharField(max_length=120)
-    zip_Code = models.CharField(max_length=6)
-    address = models.CharField(default=False, max_length=60)
+    zipcode = models.CharField(max_length=200,null=False)
+    contact_method = models.CharField(max_length=6,
+        choices=METHOD_OF_CONTACT,
+        default=EMAIL,
+    )
+    contact_info = models.CharField(default=False, max_length=60)
     date_created = models.DateTimeField(default=timezone.now)
-    date_Update = models.DateTimeField(default=timezone.now)
-    expire_date = models.DateTimeField()
+
     
     class Meta:
         verbose_name = ("Service")

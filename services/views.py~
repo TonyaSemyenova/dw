@@ -1,3 +1,4 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from .models import Service
 from products.models import Product
@@ -17,14 +18,41 @@ from django_messages.models import Message
 from django_messages.forms import ComposeForm,EnquiryForm
 from authtools.models import User
 
-class servicelistListView(ListView):
-    model = Product
+
+def servicelist(request):
     model = Service
+    volunteer = Service.objects.filter(zipcode = request.user.zipfield).order_by("-date_created")
 
-    template_name = 'services/service_home.html'  # optional (the default is app_name/modelNameInLowerCase_list.html; which will look into your templates folder for that path and file)
-    post = Service.objects.all()
-    paginate_by = 6
+    paginator = Paginator(volunteer, 1) # Show 25 contacts per page
 
+    page = request.GET.get('page')
+    try:
+        serve = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        serve = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        serve = paginator.page(paginator.num_pages)
+
+    if request.method == 'POST':
+        form = ServiceForm(request.POST, request.FILES)
+        if form.is_valid():
+            serve = Service(user=request.user, title = request.POST['title'], docfile = request.FILES['docfile'], zipcode = request.POST['zipcode'],description = request.POST['description'], contact_method = request.POST['contact_method'], contact_info = request.POST['contact_info'])
+            serve.save()
+
+            return redirect('/services/')
+    else:
+        form = ServiceForm() # A empty, unbound form
+
+
+   # Load documents for the list page
+
+    return render_to_response(
+        'services/service_home.html',
+        {'serve':serve,'form': form},
+        context_instance=RequestContext(request)
+    )
 
 def service_detail_home(request, pk):
     model = Service
@@ -40,7 +68,7 @@ def offer(request):
      if request.method == 'POST':
         form = ServiceForm(request.POST, request.FILES)
         if form.is_valid():
-            newdoc = Service(user = request.user, title = request.POST['title'], docfile = request.FILES['docfile'], active = request.POST['active'], description = request.POST['description'], duraction = request.POST['duraction'], zip_Code = request.POST['zip_Code'], address = request.POST['address'], expire_date = request.POST['expire_date'])
+            newdoc = Service(user=request.user, title = request.POST['title'], docfile = request.FILES['docfile'], zipcode = request.POST['zipcode'], description = request.POST['description'], contact_method = request.POST['contact_method'], contact_info = request.POST['contact_info'])
             newdoc.save()
 
             return HttpResponseRedirect(reverse('services:offer_detail_service', args=(newdoc.pk,)))

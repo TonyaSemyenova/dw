@@ -22,19 +22,18 @@ class Product(models.Model):
     )
     user = models.ForeignKey(User)
     title  = models.CharField(max_length=120)
+    zipcode = models.CharField(max_length=200,null=False)
     docfile = models.FileField(upload_to='Product/%Y/%m/%d', default='img/default_profile.png')
     #description = models.CharField(max_length=120)
     description = models.CharField(default=False, max_length=160)
-    active = models.BooleanField(default=True)
-    quantity = models.IntegerField(default=0)
-    zip_Code = models.CharField(blank = True, max_length=6)
-    address = models.CharField(max_length=3,
+    contact_method = models.CharField(max_length=6,
         choices=METHOD_OF_CONTACT,
         default=EMAIL,
     )
+    contact_info = models.CharField(blank = True, max_length=160)
     date_created = models.DateTimeField(default=datetime.now()+timedelta(days=30))
-    date_Update = models.DateTimeField(default=timezone.now)
-    expire_date = models.DateTimeField(blank=True, null=True)
+
+
       
     class Meta:
         verbose_name = ("title")

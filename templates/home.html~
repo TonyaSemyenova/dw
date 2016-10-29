@@ -68,7 +68,7 @@
       <div class="header-nav-wrapper">
         <div class="container">
           <nav id="menuzord-right" class="menuzord orange">
-            <a class="menuzord-brand" href="index.html">
+            <a class="menuzord-brand" href="{% url 'home' %}">
               <img src="{% static 'images/Cpanda3.png' %}" alt="" style="width:150px;height:58px;">
             </a>
            
@@ -155,7 +155,7 @@
                 </div>
 				 <div class="gallery-item">
                   <div class="thumb">
-                    <a href="give.html"><img alt="project" style="height:150px; width:150px;" src="{% static 'images/flower-8539_640.jpg' %}" class="img-circle">
+                    <a href="/products/"><img alt="project" style="height:150px; width:150px;" src="{% static 'images/flower-8539_640.jpg' %}" class="img-circle">
                     <b><h3>Give</h3></b></a>
                   </div>
                 </div>

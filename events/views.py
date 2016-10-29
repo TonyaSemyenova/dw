@@ -1,8 +1,10 @@
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from .models import Event
 from .forms import EventForm, HostForm
 from . import forms
 from . import models
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render_to_response
 from django.conf.urls import patterns, include, url
@@ -17,18 +19,30 @@ from profiles.views import *
 from django_messages.models import Message
 from django_messages.forms import ComposeForm,EnquiryForm
 from authtools.models import User
-# Create your views here.
+from django.shortcuts import redirect
+from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 @login_required
 def event(request):
     model = Event
-    event = Event.objects.all()
+    give = Event.objects.filter(zipcode = request.user.zipfield).order_by("-date_created")
+    paginator = Paginator(give, 3)# Show 25 contacts per page
+    page = request.GET.get('page')
+    try:
+        event = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        event = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        event = paginator.page(paginator.num_pages)
 
     # Handle file upload
     if request.method == 'POST':
         form = EventForm(request.POST , request.FILES)
         if form.is_valid():
-            event = Event(user=request.user, snap=request.FILES['snap'], eventtype = request.POST['eventtype'], description = request.POST['description'], place = request.POST['place'],)
+            event = Event(user=request.user, snap=request.FILES['snap'], eventtype = request.POST['eventtype'], zipcode = request.POST['zipcode'], description = request.POST['description'], contact_method = request.POST['contact_method'], contact_info = request.POST['contact_info'])
             event.save()
 
             # Redirect to the document list after POST
@@ -36,15 +50,11 @@ def event(request):
     else:
         form = EventForm() # A empty, unbound form
     
-    event = Event.objects.all()
+
    # Load documents for the list page
-    
+    return render(request, "events/event.html", { 'event': event,'form': form,})
     # Render list page with the documents and the form
-    return render_to_response(
-        'events/event.html',
-        { 'event': event,'form': form,},
-        context_instance=RequestContext(request)
-    )
+    
 
 
 def event_detail(request, pk):
@@ -60,7 +70,7 @@ def host(request):
     if request.method == 'POST':
         form = EventForm(request.POST , request.FILES)
         if form.is_valid():
-            event = Event(user=request.user, snap=request.FILES['snap'], eventtype = request.POST['eventtype'], description = request.POST['description'], place = request.POST['place'],)
+            event = Event(user=request.user, snap=request.FILES['snap'], eventtype = request.POST['eventtype'], zipcode = request.POST['zipcode'], description = request.POST['description'], place = request.POST['place'],)
             event.save()
 
             # Redirect to the document list after POST

@@ -20,6 +20,8 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render_to_response, get_object_or_404
 from django.shortcuts import render, get_object_or_404
 from django.template import RequestContext
+from django.contrib.auth.decorators import login_required
+
 
 class HomePage(generic.TemplateView):
     template_name = "home.html"
@@ -29,6 +31,7 @@ class AboutPage(generic.TemplateView):
 
 def faq(request):
 	return render(request, "faq.html", {})
+
 
 def conect(request):
 	return render(request, "conect.html", {})
@@ -66,13 +69,49 @@ def zipcode(request):
 		q = None
 	
 	if q:
-		products = Product.objects.filter(zip_Code__icontains=q)
-		events = Event.objects.filter(zip_Code__icontains=q)
-		services = Service.objects.filter(zip_Code__icontains=q)
-		context = {'query': q, 'products': products, 'services': services, 'events': events}
+
+		event = Event.objects.filter(eventtype__icontains=q)
+
+		context = {'query': q, 'event': event}
 		template = 'zipresult.html'	
 	else:
-		template = 'zipcode.html'	
+		template = 'events/event.html'	
+		context = {}
+	return render(request, template, context)
+
+@login_required
+def vole(request):
+	try:
+		q = request.GET.get('q')
+	except:
+		q = None
+	
+	if q:
+
+		serve = Service.objects.filter(title__icontains=q)
+
+		context = {'query': q, 'serve': serve}
+		template = 'zipresult1.html'	
+	else:
+		template = 'service/service_home.html'	
+		context = {}
+	return render(request, template, context)
+
+@login_required
+def give(request):
+	try:
+		q = request.GET.get('q')
+	except:
+		q = None
+	
+	if q:
+
+		give = Product.objects.filter(title__icontains=q)
+
+		context = {'query': q, 'give': give}
+		template = 'zipresult2.html'	
+	else:
+		template = 'product/product_list.html'	
 		context = {}
 	return render(request, template, context)
 
@@ -119,7 +158,7 @@ def Zipuser(request, template_name='zipuser.html'):
     profile = get_object_or_404(models.Profile,user_id=request.user.id)
     user = profile.user
     data =  User.objects.filter(zipfield = user.zipfield)
-    paginator = Paginator(data, 6)
+    paginator = Paginator(data, 3)
     page = request.GET.get('page')
     try:
         data = paginator.page(page)

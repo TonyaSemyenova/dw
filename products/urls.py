@@ -3,11 +3,11 @@ from django.conf import settings
 from django.conf.urls import include, url
 from django.conf.urls.static import static
 from django.contrib import admin
-from .views import  ProductDetailView, ProductListView
+from .views import  ProductDetailView
 from . import views
 
 urlpatterns = patterns('products.views',        
-    url(r'^$', ProductListView.as_view(), name='products'),
+    url(r'^$', views.product, name='products'),
     url(r'^(?P<pk>\d+)/$', ProductDetailView.as_view(), name='product_detail'),
     url(r'^post/$', views.list1, name='list1'),
     url(r'^active/$',views.active, name='active'),

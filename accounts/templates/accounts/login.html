@@ -155,9 +155,11 @@
                         <div class="col-md-9 col-md-offset-2">
                           <h4 style="color: #ffffff;">Login </h4>
                 <hr>
-                
+    {% if next %}
+<form action="/accounts/login/?next={{next}}" method="post" >{% csrf_token %}
+{%else%}            
   <form method="post" action="." style="padding-left:5%;">{% csrf_token %}
-
+{% endif %}
 
                   <div class="row">
                     <div class="input-group col-md-10" id="div_id_username" >

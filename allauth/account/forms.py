@@ -217,12 +217,12 @@ class BaseSignupForm(_base_signup_form_class()):
     name = forms.CharField(widget=forms.TextInput(
         attrs={'type': 'name',
                'placeholder': _('Name')}))
-    city = forms.CharField(label=_("City"),widget=forms.TextInput(
+    city = forms.CharField(label=_("zipcode"),widget=forms.TextInput(
+        attrs={'type': 'zipcode',
+               'placeholder': _('Zipcode')}))
+    zipfield = forms.CharField(label=_("City"),widget=forms.TextInput(
         attrs={'type': 'city',
                'placeholder': _('Current City')}))
-    zipfield = forms.CharField(label=_("Postal code"),widget=forms.TextInput(
-        attrs={'type': 'zipfield',
-               'placeholder': _('Zipcode')}))
 
     def __init__(self, *args, **kwargs):
         email_required = kwargs.pop('email_required',

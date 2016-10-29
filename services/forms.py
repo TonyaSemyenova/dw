@@ -4,35 +4,41 @@ from datetimewidget.widgets import DateTimeWidget, DateWidget, TimeWidget
 from services.models import Service
 
 class ServiceForm(forms.Form):
+
+    METHOD_OF_CONTACT = (
+        ('EMAIL','Email'),
+        ('CALL', 'Call'),
+        ('TEXT', 'Text'),
+    )
+
     title = forms.CharField(
         label='Title', widget=forms.TextInput(attrs={'placeholder': 'Provide service name'})
-    )    
-    description = forms.CharField(
-        label='Description', widget=forms.Textarea(attrs={'cols': 22, 'rows': 2 ,'placeholder': 'Some details about your service'})
-    )     
-    duraction = forms.CharField(
-        label='Duration', widget=forms.TextInput(attrs={'placeholder': 'Time  schedule of service'})
     )
-    zip_Code = forms.CharField(
-        label='Zipcode',widget=forms.TextInput(attrs={'placeholder': 'Your area zipcode'})
-    )
+ 
+    zipcode = forms.CharField(
+       label='Title', widget=forms.TextInput(attrs={'placeholder': 'zipcode'})
+    )   
     docfile = forms.FileField(
         label='Select Service Image'
     )
-    address = forms.CharField(
-        label='Place', widget=forms.TextInput(attrs={'placeholder': 'place where service offer'})
+    description = forms.CharField(
+        label='Description', widget=forms.Textarea(attrs={'cols': 22, 'rows': 2 ,'placeholder': 'Some details about your service'})
+    )     
+    contact_method = forms.MultipleChoiceField(
+        required=False,
+        widget=forms.CheckboxSelectMultiple,
+        choices=METHOD_OF_CONTACT,label='Preferred Method of Contact',
     )
-    expire_date = forms.DateTimeField(widget=DateTimeWidget(usel10n=True, bootstrap_version=3))
+    contact_info = forms.CharField(
+        label='Contact info', widget=forms.TextInput(attrs={'placeholder': 'Zipcode of your area'})
+    )
 
-    active = forms.BooleanField(
-        label='Are you sure to publish'
-    )
-   
+
 class OfferForm(forms.ModelForm):
 
     class Meta:
         model = Service
-        fields = ('title', 'description', 'active', 'duraction', 'address', 'docfile', 'zip_Code', 'expire_date', )
+        fields = ('title', 'docfile', 'description', 'contact_method', 'contact_info')
 
 
 

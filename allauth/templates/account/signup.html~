@@ -158,7 +158,7 @@
                 
   <form method="post" action=".">
 
-  <input type='hidden' name='csrfmiddlewaretoken' value='kLQCnEa52fkzgTd4imaR1HI09XpHvPAy' />
+  {% csrf_token %}
   
 
    <div class="row">
@@ -173,11 +173,11 @@
                   
                    <div class="input-group col-md-10">
                       <span class="input-group-addon" id="basic-addon5"><i class="fa fa-key fa-fw"></i></span>
-                      <input id="id_password1" name="password1" class="textinput textInput form-control" type="password" placeholder="password" aria-describedby="basic-addon5">
+                      <input pattern=".{8,}"   required title="8 characters minimum" id="id_password1" name="password1" class="textinput textInput form-control" type="password" placeholder="password" aria-describedby="basic-addon5" >
                     </div><br>
                     <div class="input-group col-md-10">
                      <span class="input-group-addon" id="basic-addon6"><i class="fa fa-keyboard-o" aria-hidden="true"></i></span>
-                      <input id="id_password2" name="password2"  class="textinput textInput form-control" type="password" placeholder="Re-enter password" aria-describedby="basic-addon6">
+                      <input pattern=".{8,}"   required title="8 characters minimum" id="id_password2" name="password2"  class="textinput textInput form-control" type="password" placeholder="Re-enter password" aria-describedby="basic-addon6">
                     </div><br>
 <div class="input-group col-md-10">
                      <span class="input-group-addon" id="basic-addon7"><i class="fa fa-university" aria-hidden="true"></i></span>
