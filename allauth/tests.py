@@ -171,3 +171,5 @@ class BasicTests(TestCase):
         self.assertEqual(
             utils.build_absolute_uri(None, 'http://foo.com/bar'),
             'http://foo.com/bar')
+        print ('i ve changed almost nothing')
+
